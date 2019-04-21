@@ -1,5 +1,7 @@
 #include "Ui.h"
-
+#include <iostream>
+#include "Controller.h"
+#include "Domain.h"
 Ui::Ui(Controller contr)
 {
 	this->contr = contr;
@@ -16,10 +18,10 @@ Film Ui::read_film_data() {
 	int likes;
 	string trailer;
 	cout << "Title: ";
-	getline(cin, title);
+	cin >> title;
 	cout << endl;
 	cout << "Genre: ";
-	getline(cin, genre);
+	cin >> genre;
 	cout << endl;
 	cout << "Year: ";
 	cin >> year;
@@ -28,7 +30,7 @@ Film Ui::read_film_data() {
 	cin >> likes;
 	cout << endl;
 	cout << "Trailer: ";
-	getline(cin, trailer);
+	cin >> trailer;
 	cout << endl;
 	Film film(title, genre, year, likes, trailer);
 	return film;
@@ -52,18 +54,23 @@ void Ui::modify() {
 	this->contr.modify_film(old_film, new_film);
 }
 
+void Ui::see_all_movies() {
+	this->contr.print_movies();
+}
+
 void Ui::print_menu() {
 	cout << "Welcome to Admin Menu" << endl;
 	cout << "To add a movie press: 1" << endl;
 	cout << "To remove a movie press: 2" << endl;
 	cout << "To modify a movie press: 3" << endl;
+	cout << "To see all movies press: 4" << endl;
 	cout << "To exit press: q" << endl;
 }
 
 void Ui::admin_menu() {
-	this->print_menu();
 	string option;
 	while (option != "q") {
+		this->print_menu();
 		cin >> option;
 		if (option == "1")
 			this->add();
@@ -71,6 +78,8 @@ void Ui::admin_menu() {
 			this->remove();
 		if (option == "3")
 			this->modify();
+		if (option == "4")
+			this->see_all_movies();
 	}
 }
 

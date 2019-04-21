@@ -17,6 +17,7 @@ public:
 	void add();
 	void remove();
 	void modify();
+	void see_all_movies();
 	void print_menu();
 
 	void admin_menu();

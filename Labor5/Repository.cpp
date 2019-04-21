@@ -46,6 +46,10 @@ void Repository::modify(Film old_film, Film new_film) {
 	this->movies[i].set_trailer(new_film.get_trailer());
 }
 
+vector <Film> Repository::get_movies() {
+	return this->movies;
+}
+
 Repository::~Repository()
 {
 }
