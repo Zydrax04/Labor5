@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Repository.h"
 #include "Domain.h"
+#include <string>
+#include <Windows.h>
 using namespace std;
 
 class Controller
@@ -16,6 +18,7 @@ public:
 	bool remove_film(Film film);
 	bool modify_film(Film old_film, Film new_film);
 	void print_movies();
+	void show_trailer(Film film);
 
 	~Controller();
 };

@@ -32,8 +32,13 @@ bool Controller::modify_film(Film old_film, Film new_film) {
 	return true;
 }
 
+void Controller::show_trailer(Film film) {
+	ShellExecute(NULL, "open", film.get_trailer().c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
 void Controller::print_movies() {
 	vector <Film> all_movies = this->repo.get_movies();
+	string answer;
 	Film film;
 	for (unsigned int i = 0; i < all_movies.size(); i++) {
 		film = all_movies[i];
@@ -42,6 +47,10 @@ void Controller::print_movies() {
 		cout << "Year: " << film.get_year() << endl;
 		cout << "Likes: " << film.get_likes() << endl;
 		cout << "Trailer: " << film.get_trailer() << endl;
+		cout << "Would you like to watch the trailer? y/n: ";
+		cin >> answer;
+		if (answer == "y" || answer == "Y")
+			this->show_trailer(film);
 		cout << "----------------------------------------------" << endl;
 	}
 }
