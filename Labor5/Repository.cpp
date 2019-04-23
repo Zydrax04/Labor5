@@ -50,6 +50,7 @@ vector <Film> Repository::get_movies() {
 	return this->movies;
 }
 
+vector <Film> Repository::get_watchlist(){
 	return this->watchlist;
 }
 
