@@ -50,6 +50,32 @@ vector <Film> Repository::get_movies() {
 	return this->movies;
 }
 
+	return this->watchlist;
+}
+
+void Repository::add_watchlist(Film film) {
+	this->watchlist.push_back(film);
+}
+
+void Repository::remove_watchlist(Film film) {
+	int index = this->find_film_watchlist(film);
+	this->movies.erase(this->watchlist.begin() + index);
+}
+
+int Repository::find_film_watchlist(Film film) {
+	for (int i = 0; i < this->watchlist.size(); i++) {
+		if (this->watchlist[i].get_title() == film.get_title())
+			if (this->watchlist[i].get_year() == film.get_year())
+				return i;
+	}
+	return -1;
+}
+
+void Repository::inc_like(Film film) {
+	int index = this->find_film(film);
+	int old = this->movies[index].get_likes();
+	this->movies[index].set_likes(old + 1);
+}
 Repository::~Repository()
 {
 }

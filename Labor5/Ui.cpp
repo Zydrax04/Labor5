@@ -83,6 +83,33 @@ void Ui::admin_menu() {
 	}
 }
 
+void Ui::print_client_menu() {
+	cout << "To see the trailer of a movie of a certain genre press:1" << endl;
+	cout << "To delete a movie from the watchlist press:2" << endl;
+	cout << "To see your watchlist press:3" << endl;
+}
+
+void Ui::client_menu() {
+	string option;
+	string choice;
+	while (option != "q") {
+		this->print_client_menu();
+		cin >> option;
+		if (option == "1") {
+			string genre;
+			cin >> genre;
+			if (genre == "")
+			{
+				this->contr.print_movies();
+			}
+			else 
+			{
+				this->contr.print_movies_genre(genre);
+			}
+		}
+	}
+}
+
 void Ui::choose_menu() {
 	cout << "Welcome to the Movie App" << endl;
 	cout << "For Admin user press: 1" << endl;

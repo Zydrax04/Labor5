@@ -19,7 +19,8 @@ public:
 	void modify();
 	void see_all_movies();
 	void print_menu();
-
+	void print_client_menu();
+	void client_menu();
 	void admin_menu();
 
 	void choose_menu();

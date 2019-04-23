@@ -19,6 +19,10 @@ public:
 	bool modify_film(Film old_film, Film new_film);
 	void print_movies();
 	void show_trailer(Film film);
+	void print_movies_genre(string arg);
+	bool add_film_watchlist(Film film);
+	bool remove_film_watchlist(Film film);
+	void inc_like(Film film);
 
 	~Controller();
 };
