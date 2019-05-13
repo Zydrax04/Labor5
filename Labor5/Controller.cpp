@@ -13,7 +13,7 @@ Controller::Controller()
 }
 
 bool Controller::add_film(Film film) {
-	if (this->repo.find_film(film) == -1)
+	if (this->repo.find_film(film) > -1)
 		return false;
 	this->repo.add(film);
 	return true;
@@ -72,11 +72,12 @@ void Controller::print_movies(int person, string client_choice) {
 				else break;
 			}
 		}
+		i += 1;
 	}
 }
 
 bool Controller::add_film_watchlist(Film film) {
-	if (this->repo.find_film_watchlist(film) == -1)
+	if (this->repo.find_film_watchlist(film) > -1)
 		return false;
 	this->repo.add_watchlist(film);
 	return true;
@@ -99,6 +100,7 @@ void Controller::print_watchlist()
 	int count = 0;
 	Film film;
 	vector<Film> watchlist = this->repo.get_watchlist();
+	cout << "lungimea liste e: " << watchlist.size() << endl;
 	for (int i = 0; i < watchlist.size(); i++)
 	{
 		film = watchlist[i];

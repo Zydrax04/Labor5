@@ -13,6 +13,7 @@ public:
 	Ui();
 
 	Film read_film_data();
+	Film read_existing_film();
 
 	void add();
 	void remove();

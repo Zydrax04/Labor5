@@ -18,7 +18,8 @@ Film Ui::read_film_data() {
 	int likes;
 	string trailer;
 	cout << "Title: ";
-	cin >> title;
+	getline(cin, title);
+	getline(cin, title);
 	cout << endl;
 	cout << "Genre: ";
 	cin >> genre;
@@ -36,13 +37,30 @@ Film Ui::read_film_data() {
 	return film;
 }
 
+Film Ui::read_existing_film()
+{
+	string title;
+	string genre="orice";
+	int year;
+	int likes=123;
+	string trailer="www.example.com";
+	cout << "Title: ";
+	getline(cin, title);
+	getline(cin, title);
+	cout << endl;
+	cout << "Year: ";
+	cin >> year;
+	Film film(title, genre, year, likes, trailer);
+	return film;
+}
+
 void Ui::add() {
 	Film film = this->read_film_data();
 	this->contr.add_film(film);
 }
 
 void Ui::remove() {
-	Film film = this->read_film_data();
+	Film film = this->read_existing_film();
 	this->contr.remove_film(film);
 }
 
@@ -125,7 +143,8 @@ void Ui::client_watch()
 {
 	string genre;
 	cout << "Enter genre: ";
-	cin >> genre;
+	getline(cin, genre);
+	getline(cin, genre);
 	this->contr.print_movies(1, genre);
 }
 
@@ -136,7 +155,8 @@ void Ui::watch_list()
 void Ui::delete_client_movie()
 {
 	string ans;
-	Film deleted_film = this->read_film_data();
+	cout << "Movie to delete: " << endl;
+	Film deleted_film = this->read_existing_film();
 	if (this->contr.remove_film_watchlist(deleted_film) == true)
 	{
 		cout << "Did you like the movie?";
