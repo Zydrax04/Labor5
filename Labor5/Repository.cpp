@@ -1,4 +1,5 @@
 #include "Repository.h"
+#include <vector>
 
 
 
@@ -47,10 +48,16 @@ void Repository::modify(Film old_film, Film new_film) {
 }
 
 vector <Film> Repository::get_movies() {
+	//function returns the movies list 
+	//parameters:-
+	//return vector
 	return this->movies;
 }
 
 vector <Film> Repository::get_watchlist(){
+	//function returns the watchlist 
+	//parameters:-
+	//return vector
 	return this->watchlist;
 }
 

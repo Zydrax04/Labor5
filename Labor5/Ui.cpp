@@ -55,7 +55,8 @@ void Ui::modify() {
 }
 
 void Ui::see_all_movies() {
-	this->contr.print_movies();
+	string a;
+	this->contr.print_movies(0,a);
 }
 
 void Ui::print_menu() {
@@ -84,6 +85,7 @@ void Ui::admin_menu() {
 }
 
 void Ui::print_client_menu() {
+	cout << "Welcome to Client Menu" << endl;
 	cout << "To see the trailer of a movie of a certain genre press:1" << endl;
 	cout << "To delete a movie from the watchlist press:2" << endl;
 	cout << "To see your watchlist press:3" << endl;
@@ -91,22 +93,15 @@ void Ui::print_client_menu() {
 
 void Ui::client_menu() {
 	string option;
-	string choice;
 	while (option != "q") {
 		this->print_client_menu();
 		cin >> option;
-		if (option == "1") {
-			string genre;
-			cin >> genre;
-			if (genre == "")
-			{
-				this->contr.print_movies();
-			}
-			else 
-			{
-				this->contr.print_movies_genre(genre);
-			}
-		}
+		if (option == "1")
+			this->client_watch();
+		if (option == "2")
+			this->delete_client_movie();
+		if (option == "3")
+			this->watch_list();
 	}
 }
 
@@ -123,7 +118,32 @@ void Ui::choose_menu() {
 	if (choice == "1")
 		this->admin_menu();
 	else
-		cout << "nema" << endl;
+		this->client_menu();
+}
+
+void Ui::client_watch()
+{
+	string genre;
+	cout << "Enter genre: ";
+	cin >> genre;
+	this->contr.print_movies(1, genre);
+}
+
+void Ui::watch_list()
+{
+	this->contr.print_watchlist();
+}
+void Ui::delete_client_movie()
+{
+	string ans;
+	Film deleted_film = this->read_film_data();
+	if (this->contr.remove_film_watchlist(deleted_film) == true)
+	{
+		cout << "Did you like the movie?";
+		if (ans == "y")
+			this->contr.inc_like(deleted_film);
+		else cout << "No such movie" << endl;
+	}
 }
 
 Ui::~Ui()

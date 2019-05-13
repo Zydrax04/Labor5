@@ -22,7 +22,9 @@ public:
 	void print_client_menu();
 	void client_menu();
 	void admin_menu();
-
+	void delete_client_movie();
+	void client_watch();
+	void watch_list();
 	void choose_menu();
 
 	~Ui();
