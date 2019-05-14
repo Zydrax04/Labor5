@@ -33,47 +33,19 @@ bool Controller::modify_film(Film old_film, Film new_film) {
 	return true;
 }
 
-void Controller::show_trailer(Film film) {
-	ShellExecute(NULL, "open", film.get_trailer().c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
+//void Controller::show_trailer(Film film) {
+	//ShellExecute(NULL, "open", film.get_trailer().c_str(), NULL, NULL, SW_SHOWNORMAL);
+//}
 
-void Controller::print_movies(int person, string client_choice) {
+void Controller::print_movies(int pos) {
 	vector <Film> all_movies = this->repo.get_movies();
-	string answer;
-	string choice;
-	Film film;
-	int count = 0, i = 0;
-	bool ok=false;
-	if (client_choice == "")
-		ok = true;
-	while (i < all_movies.size()) {
-		film = all_movies[i];
-		if ((person == 0) || (film.get_genre() == client_choice && ok == false) || ok == true) {
-			cout << "Title: " << film.get_title() << endl;
-			cout << "Genre: " << film.get_genre() << endl;
-			cout << "Year: " << film.get_year() << endl;
-			cout << "Likes: " << film.get_likes() << endl;
-			cout << "Trailer: " << film.get_trailer() << endl;
-			cout << "Would you like to watch the trailer? y/n: ";
-			cin >> answer;
-			if (answer == "y" || answer == "Y")
-				this->show_trailer(film);
-			cout << "----------------------------------------------" << endl;
-			if (person == 1)
-			{
-				count += 1;
-				cout << "Did you enjoy the trailer,would you like to add this movie to your watchlist?(y/n)" << endl;
-				cin >> choice;
-				if (choice == "y")
-					this->add_film_watchlist(film);
-				cout << "Would you like too see the next Film trailer ?" << endl;
-				if (choice == "y")
-					i += 1;
-				else break;
-			}
-		}
-		i += 1;
-	}
+	Film film=all_movies[pos];
+	cout << "Title: " << film.get_title() << endl;
+	cout << "Genre: " << film.get_genre() << endl;
+	cout << "Year: " << film.get_year() << endl;
+	cout << "Likes: " << film.get_likes() << endl;
+	cout << "Trailer: " << film.get_trailer() << endl;
+	cout << "----------------------------------------------" << endl;
 }
 
 bool Controller::add_film_watchlist(Film film) {
@@ -100,16 +72,35 @@ void Controller::print_watchlist()
 	int count = 0;
 	Film film;
 	vector<Film> watchlist = this->repo.get_watchlist();
-	cout << "lungimea liste e: " << watchlist.size() << endl;
 	for (int i = 0; i < watchlist.size(); i++)
 	{
 		film = watchlist[i];
 		count += 1;
 		cout << count << "." << " " << film.get_title()<<" "<<film.get_year()<< endl;
+		cout<<"\n";
 	}
 }
 
+void Controller::print_movies_admin(){
+	vector <Film> all_movies = this->repo.get_movies();
+	for(int i=0;i<all_movies.size();i++)
+	{
+		this->print_movies(i);
+	}
+}
 
+bool Controller::print_movies_user(int pos,string genre){
+	vector <Film> all_movies = this->repo.get_movies();
+	if(genre==all_movies[pos].get_genre()||genre==""){
+		this->print_movies(pos);
+		return true;
+	}else return false;
+}
+
+vector<Film> Controller::get_movies()
+{
+	return(this->repo.get_movies());
+}
 
 Controller::~Controller()
 {

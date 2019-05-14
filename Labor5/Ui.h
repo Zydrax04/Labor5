@@ -24,9 +24,10 @@ public:
 	void client_menu();
 	void admin_menu();
 	void delete_client_movie();
-	void client_watch();
 	void watch_list();
 	void choose_menu();
+	void admin_movies();
+	void user_movies();
 
 	~Ui();
 };

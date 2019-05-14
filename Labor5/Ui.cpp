@@ -73,8 +73,7 @@ void Ui::modify() {
 }
 
 void Ui::see_all_movies() {
-	string a;
-	this->contr.print_movies(0,a);
+	this->contr.print_movies_admin();
 }
 
 void Ui::print_menu() {
@@ -115,7 +114,7 @@ void Ui::client_menu() {
 		this->print_client_menu();
 		cin >> option;
 		if (option == "1")
-			this->client_watch();
+			this->user_movies();
 		if (option == "2")
 			this->delete_client_movie();
 		if (option == "3")
@@ -139,15 +138,6 @@ void Ui::choose_menu() {
 		this->client_menu();
 }
 
-void Ui::client_watch()
-{
-	string genre;
-	cout << "Enter genre: ";
-	getline(cin, genre);
-	getline(cin, genre);
-	this->contr.print_movies(1, genre);
-}
-
 void Ui::watch_list()
 {
 	this->contr.print_watchlist();
@@ -159,12 +149,45 @@ void Ui::delete_client_movie()
 	Film deleted_film = this->read_existing_film();
 	if (this->contr.remove_film_watchlist(deleted_film) == true)
 	{
-		cout << "Did you like the movie?";
+		cout << "Did you enjoy the movie?If so then increase its likes";
+		cin >> ans;
 		if (ans == "y")
 			this->contr.inc_like(deleted_film);
-		else cout << "No such movie" << endl;
 	}
+	else cout<<"No such movie"<<endl;
 }
+
+void Ui::admin_movies()
+{
+	this->contr.print_movies_admin();
+}
+
+void Ui::user_movies()
+{
+	unsigned int i=0;
+	string answer;
+	string genre;
+	cout<<"Enter the genre of the Movie "<<endl;
+	getline(cin, genre);
+	getline(cin, genre);
+	vector<Film>all=this->contr.get_movies();
+	while(i<all.size())
+	{
+		if(this->contr.print_movies_user(i,genre)==true){
+		//cout<<"Would you like to watch the trailer?"
+		//cin >> answer;
+		//if(answer==y) this->contr.show_trailer(all[i]);
+		cout<<"Did you enjoy the trailer,would you like to add it to the watchlist?(y/n)"<<endl;
+		cin>>answer;
+		if(answer=="y") this->contr.add_film_watchlist(all[i]);
+		cout<<"Would you like to see the next movie?(y/n)"<<endl;
+		cin>>answer;
+		if(answer=="y") i+=1;
+		else	break;
+		}
+		else i+=1;
+		}
+	}
 
 Ui::~Ui()
 {

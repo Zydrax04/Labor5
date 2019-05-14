@@ -67,7 +67,7 @@ void Repository::add_watchlist(Film film) {
 
 void Repository::remove_watchlist(Film film) {
 	int index = this->find_film_watchlist(film);
-	this->movies.erase(this->watchlist.begin() + index);
+	this->watchlist.erase(this->watchlist.begin() + index);
 }
 
 int Repository::find_film_watchlist(Film film) {
