@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Repository.h"
 #include "Domain.h"
+#include <windows.h>
 using namespace std;
 Controller::Controller(Repository repo)
 {
@@ -33,13 +34,13 @@ bool Controller::modify_film(Film old_film, Film new_film) {
 	return true;
 }
 
-//void Controller::show_trailer(Film film) {
-	//ShellExecute(NULL, "open", film.get_trailer().c_str(), NULL, NULL, SW_SHOWNORMAL);
-//}
+void Controller::show_trailer(Film film) {
+	ShellExecute(NULL, "open", film.get_trailer().c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
 
 void Controller::print_movies(int pos) {
 	vector <Film> all_movies = this->repo.get_movies();
-	Film film=all_movies[pos];
+	Film film = all_movies[pos];
 	cout << "Title: " << film.get_title() << endl;
 	cout << "Genre: " << film.get_genre() << endl;
 	cout << "Year: " << film.get_year() << endl;
@@ -68,7 +69,7 @@ void Controller::inc_like(Film film)
 }
 
 void Controller::print_watchlist()
-{	
+{
 	int count = 0;
 	Film film;
 	vector<Film> watchlist = this->repo.get_watchlist();
@@ -76,25 +77,26 @@ void Controller::print_watchlist()
 	{
 		film = watchlist[i];
 		count += 1;
-		cout << count << "." << " " << film.get_title()<<" "<<film.get_year()<< endl;
-		cout<<"\n";
+		cout << count << "." << " " << film.get_title() << " " << film.get_year() << endl;
+		cout << "\n";
 	}
 }
 
-void Controller::print_movies_admin(){
+void Controller::print_movies_admin() {
 	vector <Film> all_movies = this->repo.get_movies();
-	for(int i=0;i<all_movies.size();i++)
+	for (int i = 0; i < all_movies.size(); i++)
 	{
 		this->print_movies(i);
 	}
 }
 
-bool Controller::print_movies_user(int pos,string genre){
+bool Controller::print_movies_user(int pos, string genre) {
 	vector <Film> all_movies = this->repo.get_movies();
-	if(genre==all_movies[pos].get_genre()||genre==""){
+	if (genre == all_movies[pos].get_genre() || genre == "") {
 		this->print_movies(pos);
 		return true;
-	}else return false;
+	}
+	else return false;
 }
 
 vector<Film> Controller::get_movies()

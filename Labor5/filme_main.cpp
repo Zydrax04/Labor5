@@ -2,6 +2,7 @@
 #include "Ui.h"
 #include "Repository.h"
 #include "Controller.h"
+#include "Test.h"
 using namespace std;
 
 Repository add_filme() {
@@ -18,6 +19,9 @@ Repository add_filme() {
 }
 
 int main() {
+	Test test;
+	test.testAll();
+
 	Repository repo = add_filme();
 	Controller contr(repo);
 	Ui ui(contr);

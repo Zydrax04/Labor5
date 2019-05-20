@@ -24,9 +24,8 @@ public:
 	void inc_like(Film film);
 	void print_watchlist();
 	void print_movies_admin();
-	bool print_movies_user(int pos,string genre);
+	bool print_movies_user(int pos, string genre);
 	vector<Film> get_movies();
 
 	~Controller();
 };
-
